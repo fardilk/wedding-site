@@ -16,17 +16,17 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
           script: |
-            # Clone jika belum ada, pull jika sudah ada
-            if [ ! -d "/root/wedding-site" ]; then
-              git clone https://github.com/fardilk/wedding-site.git /root/wedding-site
+            if [ ! -d "${{ secrets.APP_DIR }}" ]; then
+              git clone ${{ secrets.REPO_URL }} ${{ secrets.APP_DIR }}
             fi
 
-            cd /root/wedding-site
+            cd ${{ secrets.APP_DIR }}
             git pull origin main
 
-            # Build dan jalankan container
             docker compose up -d --build
 
-            # Hapus image lama yang tidak terpakai
             docker image prune -f
+
+            echo "✅ Deploy selesai: $(date)"

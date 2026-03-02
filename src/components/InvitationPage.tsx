@@ -91,10 +91,13 @@ export default function InvitationPage() {
 
         {/* ─── 5. BRIDE & GROOM ─── (white) */}
         <div id="couple" className="bg-white py-14 px-12">
+          <p className="text-xs tracking-widest text-gray-500 uppercase text-center mb-10" style={FONTS.heading}>
+            Mempertemukan Putri dan Putra Kami
+          </p>
           {/* Bride */}
           <div className="flex items-center gap-6 mb-10">
             <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden shrink-0">
-              <img src="/images/couple-hero.jpeg" alt="Bride" className="w-full h-full object-cover" />
+              <img src="/images/iin.jpeg" alt="Bride" className="w-full h-full object-cover" />
             </div>
             <div>
               <p className="text-2xl text-gray-900 mb-1" style={FONTS.script}>Iin Sumiati</p>
@@ -109,7 +112,7 @@ export default function InvitationPage() {
           {/* Groom */}
           <div className="flex items-center gap-6 flex-row-reverse">
             <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
-              <img src="/images/couple-hero.jpeg" alt="Groom" className="w-full h-full object-cover" />
+              <img src="/images/bintang.jpeg" alt="Groom" className="w-full h-full object-cover" />
             </div>
             <div className="text-right">
               <p className="text-2xl text-gray-900 mb-1" style={FONTS.script}>Bintang Saepudin</p>
