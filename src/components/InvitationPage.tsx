@@ -9,9 +9,9 @@ const FONTS = {
 
 const NAV_ITEMS = [
   { label: 'Couple', href: '#couple', icon: (active: boolean) => <Heart className={`w-4 h-4 ${active ? 'fill-current' : ''}`} /> },
-  { label: 'Acara',  href: '#acara',  icon: (active: boolean) => <Calendar className="w-4 h-4" /> },
+  { label: 'Acara',  href: '#acara',  icon: (_active: boolean) => <Calendar className="w-4 h-4" /> },
   { label: 'Kisah',  href: '#kisah',  icon: (active: boolean) => <Heart className={`w-4 h-4 ${active ? 'fill-current' : ''}`} /> },
-  { label: 'Galeri', href: '#galeri', icon: (active: boolean) => <Music2 className="w-4 h-4" /> },
+  { label: 'Galeri', href: '#galeri', icon: (_active: boolean) => <Music2 className="w-4 h-4" /> },
   { label: 'Lokasi', href: '#acara',  icon: (active: boolean) => <MapPin className={`w-4 h-4 ${active ? 'fill-current' : ''}`} /> },
 ]
 
