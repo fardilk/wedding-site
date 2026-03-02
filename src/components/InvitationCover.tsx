@@ -51,9 +51,10 @@ export default function InvitationCover({ playOnHover }: InvitationCoverProps) {
 
   return (
     <div
-      className="relative w-full h-screen flex items-center justify-center overflow-hidden"
+      className="relative w-full flex items-center justify-center overflow-hidden"
       onMouseEnter={playOnHover}
       style={{
+        height: '100dvh',
         animation: isExiting ? 'easeOutDissolve 0.6s ease-out forwards' : 'none',
       }}
     >
