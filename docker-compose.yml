@@ -1,0 +1,7 @@
+services:
+  wedding-site:
+    build: .
+    container_name: wedding-site
+    restart: unless-stopped
+    ports:
+      - "8001:80"
