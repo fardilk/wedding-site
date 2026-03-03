@@ -1,4 +1,5 @@
-import { Calendar, ChevronLeft, ChevronRight, Heart, MapPin, Monitor, Music2, QrCode, X } from 'lucide-react'
+import html2canvas from 'html2canvas'
+import { Calendar, ChevronLeft, ChevronRight, Download, Heart, MapPin, Monitor, Music2, QrCode, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { GuestMessage } from '../lib/messages'
@@ -216,6 +217,27 @@ export default function InvitationPage() {
     setSending(false)
   }
 
+  const [igOpen, setIgOpen] = useState(false)
+  const [capturing, setCapturing] = useState(false)
+  const igRef = useRef<HTMLDivElement>(null)
+
+  async function handleCapture() {
+    if (!igRef.current) return
+    setCapturing(true)
+    await document.fonts.ready
+    const canvas = await html2canvas(igRef.current, {
+      scale: 3,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+    })
+    const link = document.createElement('a')
+    link.download = 'undangan-iin-bintang.jpg'
+    link.href = canvas.toDataURL('image/jpeg', 0.95)
+    link.click()
+    setCapturing(false)
+  }
+
   return (
     <div className="w-full min-h-screen bg-gray-300 flex justify-center items-start relative pt-0">
       {/* Canvas */}
@@ -390,18 +412,19 @@ export default function InvitationPage() {
           <p className="text-xs tracking-widest text-white/40 uppercase text-center mb-8" style={FONTS.heading}>Galeri</p>
           <div className="grid grid-cols-3 gap-2">
             {[
-              '/images/image-4.jpeg',
-              '/images/image-5.jpeg',
-              '/images/image-6.jpeg',
-              '/images/image-7.jpeg',
-              '/images/image-8.jpeg',
-              '/images/image-9.jpeg',
-            ].map((src, i) => (
+              { src: '/images/image-4.jpeg', shift: false },
+              { src: '/images/image-5.jpeg', shift: false },
+              { src: '/images/image-6.jpeg', shift: true  },
+              { src: '/images/image-7.jpeg', shift: false },
+              { src: '/images/image-8.jpeg', shift: true  },
+              { src: '/images/image-9.jpeg', shift: true  },
+            ].map(({ src, shift }, i) => (
               <div key={i} className="aspect-square bg-neutral-700 overflow-hidden">
                 <img
                   src={src}
                   alt={`Gallery ${i + 1}`}
                   className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
+                  style={{ objectPosition: shift ? 'top' : 'center' }}
                 />
               </div>
             ))}
@@ -604,13 +627,82 @@ export default function InvitationPage() {
           <p className="text-sm text-gray-500 mb-6" style={FONTS.body}>
             Bagikan momen bahagia ini di Instagram Stories kamu!
           </p>
-          <div className="bg-linear-to-br from-purple-500 to-pink-500 text-white rounded-xl p-6 flex items-center gap-4 justify-center">
-            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          <button
+            onClick={() => setIgOpen(true)}
+            className="w-full text-white rounded-xl p-6 flex items-center gap-4 justify-center transition-opacity hover:opacity-90"
+            style={{ background: 'linear-gradient(135deg, #a855f7, #ec4899)' }}
+          >
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0">
               <span className="text-pink-500 text-xs font-bold">IG</span>
             </div>
             <span className="font-semibold tracking-wide" style={FONTS.heading}>Template IG Story</span>
-          </div>
+          </button>
         </div>
+
+        {/* IG Story Modal */}
+        {igOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            onClick={() => setIgOpen(false)}
+          >
+            <div className="flex flex-col items-center gap-4" onClick={e => e.stopPropagation()}>
+
+              {/* Story card — 9:16 */}
+              <div
+                ref={igRef}
+                className="relative overflow-hidden"
+                style={{ width: '270px', height: '480px', borderRadius: '16px' }}
+              >
+                {/* Background photo */}
+                <img
+                  src="/images/couple-hero.jpeg"
+                  alt="couple"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  crossOrigin="anonymous"
+                />
+
+                {/* Gradient overlay */}
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(to bottom, transparent 35%, rgba(45,45,45,0.97) 65%)' }}
+                />
+
+                {/* Text content */}
+                <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-8 px-4 text-center">
+                  <p className="text-[9px] tracking-[0.25em] text-white/60 uppercase mb-3" style={FONTS.heading}>
+                    Walimatul Ursy
+                  </p>
+                  <p className="text-5xl text-white leading-none mb-1" style={FONTS.script}>Iin</p>
+                  <p className="text-2xl text-white/50 my-1" style={FONTS.script}>&</p>
+                  <p className="text-5xl text-white leading-none mb-4" style={FONTS.script}>Bintang</p>
+                  <p className="text-[10px] text-white/60 tracking-widest" style={FONTS.body}>
+                    Ahad · 22 · Maret · 2026
+                  </p>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-3">
+                <button
+                  onClick={handleCapture}
+                  disabled={capturing}
+                  className="flex items-center gap-2 bg-white text-gray-900 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide hover:bg-white/90 transition-all disabled:opacity-50"
+                  style={FONTS.heading}
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  {capturing ? 'Menyimpan...' : 'Simpan Gambar'}
+                </button>
+                <button
+                  onClick={() => setIgOpen(false)}
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-all"
+                >
+                  <X className="w-4 h-4 text-white" />
+                </button>
+              </div>
+
+            </div>
+          </div>
+        )}
 
         {/* ─── 12. FOOTER ─── (dark) */}
         <div className="bg-neutral-900 py-12 px-12 text-center">
