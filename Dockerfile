@@ -9,10 +9,10 @@ ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
 ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
 
 COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
+RUN npm install -g pnpm && pnpm install --frozen-lockfile --ignore-scripts
 
 COPY . .
-RUN pnpm build
+RUN pnpm exec tsc -b && pnpm exec vite build
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
