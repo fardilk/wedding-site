@@ -1,6 +1,6 @@
 services:
   wedding-site:
-    build: .
+    image: ghcr.io/${GITHUB_REPOSITORY}:latest
     container_name: wedding-site
     restart: unless-stopped
     ports:
