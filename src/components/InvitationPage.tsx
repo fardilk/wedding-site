@@ -1,4 +1,3 @@
-import html2canvas from 'html2canvas'
 import { Calendar, ChevronLeft, ChevronRight, Download, Heart, MapPin, Monitor, Music2, QrCode, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
@@ -219,18 +218,65 @@ export default function InvitationPage() {
 
   const [igOpen, setIgOpen] = useState(false)
   const [capturing, setCapturing] = useState(false)
-  const igRef = useRef<HTMLDivElement>(null)
 
   async function handleCapture() {
-    if (!igRef.current) return
     setCapturing(true)
     await document.fonts.ready
-    const canvas = await html2canvas(igRef.current, {
-      scale: 3,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: null,
-    })
+
+    const W = 1080
+    const H = 1920
+    const canvas = document.createElement('canvas')
+    canvas.width = W
+    canvas.height = H
+    const ctx = canvas.getContext('2d')!
+
+    // Draw background image (cover)
+    const img = new Image()
+    img.crossOrigin = 'anonymous'
+    await new Promise<void>((res, rej) => { img.onload = () => res(); img.onerror = rej; img.src = '/images/couple-hero.jpeg' })
+    const scale = Math.max(W / img.width, H / img.height)
+    const iw = img.width * scale
+    const ih = img.height * scale
+    ctx.drawImage(img, (W - iw) / 2, (H - ih) / 2, iw, ih)
+
+    // Gradient overlay
+    const grad = ctx.createLinearGradient(0, H * 0.32, 0, H)
+    grad.addColorStop(0, 'transparent')
+    grad.addColorStop(0.35, 'rgba(42,42,42,0.97)')
+    grad.addColorStop(1, 'rgba(42,42,42,1)')
+    ctx.fillStyle = grad
+    ctx.fillRect(0, 0, W, H)
+
+    ctx.textAlign = 'center'
+
+    // WALIMATUL URSY
+    ctx.fillStyle = 'rgba(255,255,255,0.5)'
+    ctx.font = '44px Cinzel, serif'
+    ctx.letterSpacing = '8px'
+    ctx.fillText('WALIMATUL URSY', W / 2, H * 0.57)
+
+    // Iin
+    ctx.fillStyle = 'rgba(255,255,255,1)'
+    ctx.font = '230px "Great Vibes", cursive'
+    ctx.letterSpacing = '0px'
+    ctx.fillText('Iin', W / 2, H * 0.715)
+
+    // &
+    ctx.fillStyle = 'rgba(255,255,255,0.45)'
+    ctx.font = '120px "Great Vibes", cursive'
+    ctx.fillText('&', W / 2, H * 0.775)
+
+    // Bintang
+    ctx.fillStyle = 'rgba(255,255,255,1)'
+    ctx.font = '230px "Great Vibes", cursive'
+    ctx.fillText('Bintang', W / 2, H * 0.875)
+
+    // Date
+    ctx.fillStyle = 'rgba(255,255,255,0.45)'
+    ctx.font = '42px Cormorant, serif'
+    ctx.letterSpacing = '4px'
+    ctx.fillText('Ahad  ·  22  ·  Maret  ·  2026', W / 2, H * 0.93)
+
     const link = document.createElement('a')
     link.download = 'undangan-iin-bintang.jpg'
     link.href = canvas.toDataURL('image/jpeg', 0.95)
@@ -649,7 +695,6 @@ export default function InvitationPage() {
 
               {/* Story card — 9:16 */}
               <div
-                ref={igRef}
                 className="relative overflow-hidden"
                 style={{ width: '270px', height: '480px', borderRadius: '16px' }}
               >
