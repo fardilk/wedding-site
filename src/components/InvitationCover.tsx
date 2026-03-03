@@ -68,107 +68,150 @@ export default function InvitationCover({ playOnHover }: InvitationCoverProps) {
           }
         }
       `}</style>
-      {/* Background Image with Dark Overlay */}
+      {/* Background Image */}
       <div
-        className="absolute inset-0 bg-center bg-no-repeat bg-gray-800"
+        className="absolute inset-0 bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/images/couple-bg.jpg)',
-          backgroundSize: '30% auto',
-          filter: 'grayscale(100%)',
+          backgroundSize: 'cover',
+          filter: 'grayscale(60%) brightness(0.55)',
         }}
-      >
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
+      />
 
+      {/* Metallic blue gradient overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(160deg, rgba(10,25,60,0.55) 0%, rgba(15,39,100,0.70) 40%, rgba(8,18,45,0.88) 100%)',
+        }}
+      />
 
-      {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full">
-        {/* Header Label */}
-        <div className="mb-12">
-          <p
-            className="text-white/90 text-xl font-semibold tracking-widest uppercase"
-            style={{ fontFamily: 'Cinzel, serif' }}
-          >
-            Undangan Pernikahan
-          </p>
+      {/* Blue shimmer top */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(56,120,220,0.18) 0%, transparent 65%)',
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 w-full">
+
+        {/* Top label */}
+        <p
+          className="text-[11px] tracking-[0.35em] uppercase mb-8"
+          style={{ fontFamily: 'Cinzel, serif', color: 'rgba(168,212,245,0.6)' }}
+        >
+          Undangan Pernikahan
+        </p>
+
+        {/* Decorative line */}
+        <div className="flex items-center gap-3 mb-8 w-40">
+          <div className="flex-1 h-px" style={{ background: 'rgba(100,160,220,0.35)' }} />
+          <div className="w-1 h-1 rounded-full" style={{ background: 'rgba(168,212,245,0.5)' }} />
+          <div className="flex-1 h-px" style={{ background: 'rgba(100,160,220,0.35)' }} />
         </div>
 
-        {/* Names Section */}
-        <div className="mb-12">
-          <div
-            className="text-6xl md:text-7xl font-bold text-white mb-4"
-            style={{ fontFamily: 'Great Vibes, cursive' }}
-          >
+        {/* Names */}
+        <div className="mb-2">
+          <div className="text-7xl md:text-8xl text-white" style={{ fontFamily: 'Great Vibes, cursive' }}>
             Iin
           </div>
-          <div className="text-white/70 text-2xl mb-4">&</div>
-          <div
-            className="text-6xl md:text-7xl font-bold text-white"
-            style={{ fontFamily: 'Great Vibes, cursive' }}
-          >
+          <div className="text-2xl my-1" style={{ fontFamily: 'Great Vibes, cursive', color: 'rgba(168,212,245,0.5)' }}>
+            &
+          </div>
+          <div className="text-7xl md:text-8xl text-white" style={{ fontFamily: 'Great Vibes, cursive' }}>
             Bintang
           </div>
         </div>
 
-        {/* Date Display */}
-        <div className="mb-12">
-          <div className="text-white text-2xl md:text-3xl font-light tracking-wider">
-            22 <span className="mx-3">·</span> Maret <span className="mx-3">·</span> 2026
-          </div>
+        {/* Decorative line */}
+        <div className="flex items-center gap-3 my-8 w-40">
+          <div className="flex-1 h-px" style={{ background: 'rgba(100,160,220,0.35)' }} />
+          <div className="w-1 h-1 rounded-full" style={{ background: 'rgba(168,212,245,0.5)' }} />
+          <div className="flex-1 h-px" style={{ background: 'rgba(100,160,220,0.35)' }} />
         </div>
 
-        {/* Recipient Label */}
+        {/* Date */}
+        <p
+          className="text-base tracking-widest mb-8"
+          style={{ fontFamily: 'Cormorant, serif', color: 'rgba(168,212,245,0.7)' }}
+        >
+          Ahad · 22 · Maret · 2026
+        </p>
+
+        {/* Guest name */}
         {guestName && (
-          <div className="mb-12">
-            <p className="text-white/80 text-lg">
-              Kepada: <span className="font-semibold text-white">{guestName}</span>
-            </p>
+          <div
+            className="mb-8 px-5 py-2 rounded-full text-sm"
+            style={{
+              fontFamily: 'Cormorant, serif',
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(100,160,220,0.2)',
+              color: 'rgba(168,212,245,0.8)',
+            }}
+          >
+            Kepada: <span style={{ color: '#e8f4ff' }}>{guestName}</span>
           </div>
         )}
 
         {/* CTA Button */}
         <button
           onClick={handleOpenClick}
-          className="flex items-center gap-3 bg-white/20 hover:bg-white/30 text-white px-8 py-3 rounded-full backdrop-blur-sm transition-all duration-300 border border-white/30 hover:border-white/50"
+          className="flex items-center gap-3 px-8 py-3 rounded-full transition-all duration-300 hover:brightness-110"
+          style={{
+            fontFamily: 'Cinzel, serif',
+            background: 'linear-gradient(135deg, #1e3a5f 0%, #2e6b9e 100%)',
+            border: '1px solid rgba(100,160,220,0.4)',
+            boxShadow: '0 4px 24px rgba(30,90,180,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+            color: '#e8f4ff',
+            fontSize: '12px',
+            letterSpacing: '0.15em',
+          }}
         >
-          <Mail className="w-5 h-5" />
-          <span className="font-medium">Buka Undangan</span>
+          <Mail className="w-4 h-4" />
+          <span>Buka Undangan</span>
         </button>
 
-        {/* Countdown Timer */}
-        <div
-          className="mt-12 text-white/80 text-center"
-          style={{ fontFamily: 'Cormorant, serif' }}
-        >
-          <p className="text-lg font-light mb-6">Menghitung Hari Spesial</p>
-          <div className="flex gap-8 justify-center text-sm md:text-base">
-            <div className="flex flex-col items-center">
-              <div className="text-2xl md:text-3xl font-semibold text-white">
-                {countdown.days}
+        {/* Countdown */}
+        <div className="mt-10 text-center">
+          <p
+            className="text-xs tracking-widest uppercase mb-5"
+            style={{ fontFamily: 'Cinzel, serif', color: 'rgba(168,212,245,0.4)' }}
+          >
+            Menghitung Hari Spesial
+          </p>
+          <div className="flex gap-6 justify-center">
+            {[
+              { value: countdown.days, label: 'Hari' },
+              { value: String(countdown.hours).padStart(2, '0'), label: 'Jam' },
+              { value: String(countdown.minutes).padStart(2, '0'), label: 'Menit' },
+              { value: String(countdown.seconds).padStart(2, '0'), label: 'Detik' },
+            ].map(({ value, label }) => (
+              <div key={label} className="flex flex-col items-center">
+                <div
+                  className="w-14 h-14 rounded-xl flex items-center justify-center text-xl font-semibold mb-2"
+                  style={{
+                    fontFamily: 'Cinzel, serif',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(100,160,220,0.2)',
+                    color: '#e8f4ff',
+                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
+                  }}
+                >
+                  {value}
+                </div>
+                <span
+                  className="text-[10px] tracking-widest uppercase"
+                  style={{ fontFamily: 'Cinzel, serif', color: 'rgba(168,212,245,0.4)' }}
+                >
+                  {label}
+                </span>
               </div>
-              <div className="text-white/70 text-xs md:text-sm mt-2">Hari</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="text-2xl md:text-3xl font-semibold text-white">
-                {String(countdown.hours).padStart(2, '0')}
-              </div>
-              <div className="text-white/70 text-xs md:text-sm mt-2">Jam</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="text-2xl md:text-3xl font-semibold text-white">
-                {String(countdown.minutes).padStart(2, '0')}
-              </div>
-              <div className="text-white/70 text-xs md:text-sm mt-2">Menit</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="text-2xl md:text-3xl font-semibold text-white">
-                {String(countdown.seconds).padStart(2, '0')}
-              </div>
-              <div className="text-white/70 text-xs md:text-sm mt-2">Detik</div>
-            </div>
+            ))}
           </div>
         </div>
+
       </div>
     </div>
   )

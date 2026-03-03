@@ -19,7 +19,7 @@ const NAV_ITEMS = [
 
 const LOVE_STORIES = [
   {
-    image: '/images/image-1.jpeg',
+    image: '/images/image-17.jpeg',
     label: '01',
     title: 'Pertemuan Pertama',
     desc: 'Takdir mempertemukan kami di tempat kerja yang sama. Dari sekedar rekan, perlahan tumbuh rasa yang tak terduga.',
@@ -416,9 +416,15 @@ export default function InvitationPage() {
             Kab. Cilacap, Jawa Tengah
           </p>
           <div className="flex justify-center gap-3">
-            <button className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all" style={FONTS.heading}>
+            <a
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Walimatul+Ursy+Iin+%26+Bintang&dates=20260322T010000Z/20260322T080000Z&details=Akad+Nikah+08.00-10.00+WIB%0AResepsi+11.00-15.00+WIB%0A%0Ahttps%3A%2F%2Fwedding-iin-bintang.fardil.cloud&location=Jl.+Pemuda+Dusun+Ciwalen+RT+3%2FRW+1%2C+Desa+Ciwalen%2C+Kec.+Dayeuhluhur%2C+Kab.+Cilacap%2C+Jawa+Tengah"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all"
+              style={FONTS.heading}
+            >
               <Calendar className="w-3 h-3" /> Simpan Tanggal
-            </button>
+            </a>
             <a
               href="https://maps.app.goo.gl/J8TFTrizCpcZyLef9"
               target="_blank"
