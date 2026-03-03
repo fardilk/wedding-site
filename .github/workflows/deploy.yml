@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout code
@@ -41,3 +44,5 @@ jobs:
             docker compose -f ~/wedding-site/docker-compose.yml up -d --no-build
             docker image prune -f
             echo "✅ Deploy selesai: $(date)"
+
+              
