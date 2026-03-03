@@ -1,4 +1,5 @@
 import { Calendar, ChevronLeft, ChevronRight, Download, Heart, MapPin, Monitor, Music2, QrCode, X } from 'lucide-react'
+import FadeIn from './FadeIn'
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { GuestMessage } from '../lib/messages'
@@ -345,115 +346,135 @@ export default function InvitationPage() {
 
         {/* ─── 4. OPENING QUOTE ─── (dark) */}
         <div className="bg-neutral-800 py-14 px-12 flex flex-col items-center text-center">
-          <span className="text-5xl text-white/30 mb-4" style={FONTS.script}>"</span>
-          <p className="text-white/80 text-base leading-relaxed max-w-sm" style={FONTS.body}>
-            Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri,
-            supaya kamu cenderung dan merasa tenteram kepadanya.
-          </p>
-          <p className="text-white/40 text-xs mt-4 tracking-widest uppercase" style={FONTS.heading}>
-            Ar-Rum: 21
-          </p>
+          <FadeIn>
+            <span className="text-5xl text-white/30 mb-4" style={FONTS.script}>"</span>
+            <p className="text-white/80 text-base leading-relaxed max-w-sm" style={FONTS.body}>
+              Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri,
+              supaya kamu cenderung dan merasa tenteram kepadanya.
+            </p>
+            <p className="text-white/40 text-xs mt-4 tracking-widest uppercase" style={FONTS.heading}>
+              Ar-Rum: 21
+            </p>
+          </FadeIn>
         </div>
 
         {/* ─── 5. BRIDE & GROOM ─── (white) */}
         <div id="couple" className="bg-white py-14 px-12">
-          <p className="text-xs tracking-widest text-gray-500 uppercase text-center mb-10" style={FONTS.heading}>
-            Mempertemukan Putri dan Putra Kami
-          </p>
+          <FadeIn>
+            <p className="text-xs tracking-widest text-gray-500 uppercase text-center mb-10" style={FONTS.heading}>
+              Mempertemukan Putri dan Putra Kami
+            </p>
+          </FadeIn>
           {/* Bride */}
-          <div className="flex items-center gap-6 mb-10">
-            <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden shrink-0">
-              <img src="/images/iin.jpeg" alt="Bride" className="w-full h-full object-cover" />
+          <FadeIn delay={100}>
+            <div className="flex items-center gap-6 mb-10">
+              <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden shrink-0">
+                <img src="/images/iin.jpeg" alt="Bride" className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p className="text-2xl text-gray-900 mb-1" style={FONTS.script}>Iin Sumiati</p>
+                <p className="text-xs text-gray-600 leading-relaxed" style={FONTS.body}>
+                  Putri dari Bapak Udin & Ibu Tarkiyah
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="text-2xl text-gray-900 mb-1" style={FONTS.script}>Iin Sumiati</p>
-              <p className="text-xs text-gray-600 leading-relaxed" style={FONTS.body}>
-                Putri dari Bapak Udin & Ibu Tarkiyah
-              </p>
-            </div>
-          </div>
+          </FadeIn>
 
-          <div className="text-center text-4xl text-gray-500 my-6" style={FONTS.script}>&</div>
+          <FadeIn delay={200}>
+            <div className="text-center text-4xl text-gray-500 my-6" style={FONTS.script}>&</div>
+          </FadeIn>
 
           {/* Groom */}
-          <div className="flex items-center gap-6 flex-row-reverse">
-            <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden shrink-0">
-              <img src="/images/bintang.jpeg" alt="Groom" className="w-full h-full object-cover" />
+          <FadeIn delay={300}>
+            <div className="flex items-center gap-6 flex-row-reverse">
+              <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden shrink-0">
+                <img src="/images/bintang.jpeg" alt="Groom" className="w-full h-full object-cover" />
+              </div>
+              <div className="text-right">
+                <p className="text-2xl text-gray-900 mb-1" style={FONTS.script}>Bintang Saepudin</p>
+                <p className="text-xs text-gray-600 leading-relaxed" style={FONTS.body}>
+                  Putra dari Bapak Apud Saepudin & Ibu Asih
+                </p>
+              </div>
             </div>
-            <div className="text-right">
-              <p className="text-2xl text-gray-900 mb-1" style={FONTS.script}>Bintang Saepudin</p>
-              <p className="text-xs text-gray-600 leading-relaxed" style={FONTS.body}>
-                Putra dari Bapak Apud Saepudin & Ibu Asih
-              </p>
-            </div>
-          </div>
+          </FadeIn>
         </div>
 
         {/* ─── 6. EVENTS ─── (dark) */}
         <div id="acara" className="bg-neutral-800 py-14 px-12 text-center">
-          <p className="text-xs tracking-widest text-white/40 uppercase mb-8" style={FONTS.heading}>Acara</p>
+          <FadeIn>
+            <p className="text-xs tracking-widest text-white/40 uppercase mb-8" style={FONTS.heading}>Acara</p>
+          </FadeIn>
 
           {/* Akad Nikah */}
-          <div className="mb-10">
-            <h3 className="text-3xl text-white mb-3" style={FONTS.script}>Akad Nikah</h3>
-            <p className="text-white/60 text-sm mb-1" style={FONTS.body}>Ahad, 22 Maret 2026</p>
-            <p className="text-white/60 text-sm" style={FONTS.body}>08.00 – 10.00 WIB</p>
-          </div>
+          <FadeIn delay={100}>
+            <div className="mb-10">
+              <h3 className="text-3xl text-white mb-3" style={FONTS.script}>Akad Nikah</h3>
+              <p className="text-white/60 text-sm mb-1" style={FONTS.body}>Ahad, 22 Maret 2026</p>
+              <p className="text-white/60 text-sm" style={FONTS.body}>08.00 – 10.00 WIB</p>
+            </div>
+          </FadeIn>
 
           <div className="w-px h-10 bg-white/20 mx-auto mb-10" />
 
           {/* Resepsi */}
-          <div className="mb-10">
-            <h3 className="text-3xl text-white mb-3" style={FONTS.script}>Resepsi</h3>
-            <p className="text-white/60 text-sm mb-1" style={FONTS.body}>Ahad, 22 Maret 2026</p>
-            <p className="text-white/60 text-sm" style={FONTS.body}>11.00 – 15.00 WIB</p>
-          </div>
+          <FadeIn delay={200}>
+            <div className="mb-10">
+              <h3 className="text-3xl text-white mb-3" style={FONTS.script}>Resepsi</h3>
+              <p className="text-white/60 text-sm mb-1" style={FONTS.body}>Ahad, 22 Maret 2026</p>
+              <p className="text-white/60 text-sm" style={FONTS.body}>11.00 – 15.00 WIB</p>
+            </div>
+          </FadeIn>
 
           {/* Lokasi */}
-          <p className="text-white/50 text-xs mb-6 leading-relaxed" style={FONTS.body}>
-            Jl. Pemuda, Dusun Ciwalen RT 3/RW 1<br />
-            Desa Ciwalen, Kec. Dayeuhluhur<br />
-            Kab. Cilacap, Jawa Tengah
-          </p>
-          <div className="flex justify-center gap-3">
-            <a
-              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Walimatul+Ursy+Iin+%26+Bintang&dates=20260322T010000Z/20260322T080000Z&details=Akad+Nikah+08.00-10.00+WIB%0AResepsi+11.00-15.00+WIB%0A%0Ahttps%3A%2F%2Fwedding-iin-bintang.fardil.cloud&location=Jl.+Pemuda+Dusun+Ciwalen+RT+3%2FRW+1%2C+Desa+Ciwalen%2C+Kec.+Dayeuhluhur%2C+Kab.+Cilacap%2C+Jawa+Tengah"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all"
-              style={FONTS.heading}
-            >
-              <Calendar className="w-3 h-3" /> Simpan Tanggal
-            </a>
-            <a
-              href="https://maps.app.goo.gl/J8TFTrizCpcZyLef9"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all"
-              style={FONTS.heading}
-            >
-              <MapPin className="w-3 h-3" /> Google Maps
-            </a>
-          </div>
+          <FadeIn delay={300}>
+            <p className="text-white/50 text-xs mb-6 leading-relaxed" style={FONTS.body}>
+              Jl. Pemuda, Dusun Ciwalen RT 3/RW 1<br />
+              Desa Ciwalen, Kec. Dayeuhluhur<br />
+              Kab. Cilacap, Jawa Tengah
+            </p>
+            <div className="flex justify-center gap-3">
+              <a
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Walimatul+Ursy+Iin+%26+Bintang&dates=20260322T010000Z/20260322T080000Z&details=Akad+Nikah+08.00-10.00+WIB%0AResepsi+11.00-15.00+WIB%0A%0Ahttps%3A%2F%2Fwedding-iin-bintang.fardil.cloud&location=Jl.+Pemuda+Dusun+Ciwalen+RT+3%2FRW+1%2C+Desa+Ciwalen%2C+Kec.+Dayeuhluhur%2C+Kab.+Cilacap%2C+Jawa+Tengah"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all"
+                style={FONTS.heading}
+              >
+                <Calendar className="w-3 h-3" /> Simpan Tanggal
+              </a>
+              <a
+                href="https://maps.app.goo.gl/J8TFTrizCpcZyLef9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all"
+                style={FONTS.heading}
+              >
+                <MapPin className="w-3 h-3" /> Google Maps
+              </a>
+            </div>
+          </FadeIn>
 
           <div className="w-px h-10 bg-white/20 mx-auto mb-10" />
 
           {/* Live Streaming */}
-          <div>
-            <h3 className="text-3xl text-white mb-3" style={FONTS.script}>Live Streaming</h3>
-            <p className="text-white/60 text-sm mb-4" style={FONTS.body}>
-              Bagi yang tidak bisa hadir, saksikan secara live melalui tautan berikut
-            </p>
-            <a
-              href="https://www.tiktok.com/@iinnnst_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all mx-auto"
-              style={FONTS.heading}
-            >
-              <Monitor className="w-3 h-3" /> Tonton Live
-            </a>
-          </div>
+          <FadeIn delay={400}>
+            <div>
+              <h3 className="text-3xl text-white mb-3" style={FONTS.script}>Live Streaming</h3>
+              <p className="text-white/60 text-sm mb-4" style={FONTS.body}>
+                Bagi yang tidak bisa hadir, saksikan secara live melalui tautan berikut
+              </p>
+              <a
+                href="https://www.tiktok.com/@iinnnst_"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all mx-auto"
+                style={FONTS.heading}
+              >
+                <Monitor className="w-3 h-3" /> Tonton Live
+              </a>
+            </div>
+          </FadeIn>
         </div>
 
         {/* ─── 7. LOVE STORY ─── (white) */}
@@ -461,41 +482,47 @@ export default function InvitationPage() {
 
         {/* ─── 8. GALLERY ─── (dark) */}
         <div id="galeri" className="bg-neutral-800 py-14 px-12">
-          <p className="text-xs tracking-widest text-white/40 uppercase text-center mb-8" style={FONTS.heading}>Galeri</p>
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { src: '/images/image-4.jpeg', shift: false },
-              { src: '/images/image-5.jpeg', shift: false },
-              { src: '/images/image-6.jpeg', shift: true  },
-              { src: '/images/image-7.jpeg', shift: false },
-              { src: '/images/image-8.jpeg', shift: true  },
-              { src: '/images/image-9.jpeg', shift: true  },
-            ].map(({ src, shift }, i) => (
-              <div key={i} className="aspect-square bg-neutral-700 overflow-hidden">
-                <img
-                  src={src}
-                  alt={`Gallery ${i + 1}`}
-                  className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
-                  style={{ objectPosition: shift ? 'top' : 'center' }}
-                />
-              </div>
-            ))}
-          </div>
+          <FadeIn>
+            <p className="text-xs tracking-widest text-white/40 uppercase text-center mb-8" style={FONTS.heading}>Galeri</p>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { src: '/images/image-4.jpeg', shift: false },
+                { src: '/images/image-5.jpeg', shift: false },
+                { src: '/images/image-6.jpeg', shift: true  },
+                { src: '/images/image-7.jpeg', shift: false },
+                { src: '/images/image-8.jpeg', shift: true  },
+                { src: '/images/image-9.jpeg', shift: true  },
+              ].map(({ src, shift }, i) => (
+                <div key={i} className="aspect-square bg-neutral-700 overflow-hidden">
+                  <img
+                    src={src}
+                    alt={`Gallery ${i + 1}`}
+                    className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
+                    style={{ objectPosition: shift ? 'top' : 'center' }}
+                  />
+                </div>
+              ))}
+            </div>
+          </FadeIn>
         </div>
 
         {/* ─── 9. RSVP ─── (dark) */}
         <div className="bg-neutral-900 py-14 px-12 text-center">
-          <p className="text-xs tracking-widest text-white/40 uppercase mb-6" style={FONTS.heading}>Konfirmasi Kehadiran</p>
-          <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-xs mx-auto" style={FONTS.body}>
-            Kehadiran Bapak/Ibu, Saudara/i adalah kehormatan bagi kami. Mohon konfirmasi kehadiran Anda.
-          </p>
-          <button
-            onClick={openRsvp}
-            className="bg-white text-neutral-900 px-8 py-3 rounded-full text-sm tracking-wider hover:bg-white/90 transition-all"
-            style={FONTS.heading}
-          >
-            Konfirmasi Sekarang
-          </button>
+          <FadeIn>
+            <p className="text-xs tracking-widest text-white/40 uppercase mb-6" style={FONTS.heading}>Konfirmasi Kehadiran</p>
+            <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-xs mx-auto" style={FONTS.body}>
+              Kehadiran Bapak/Ibu, Saudara/i adalah kehormatan bagi kami. Mohon konfirmasi kehadiran Anda.
+            </p>
+            <button
+              onClick={openRsvp}
+              className="bg-white text-neutral-900 px-8 py-3 rounded-full text-sm tracking-wider hover:bg-white/90 transition-all"
+              style={FONTS.heading}
+            >
+              Konfirmasi Sekarang
+            </button>
+          </FadeIn>
         </div>
 
         {/* RSVP Modal */}
@@ -634,61 +661,69 @@ export default function InvitationPage() {
 
         {/* ─── 10. UCAPAN & DOA ─── (white) */}
         <div className="bg-white py-14 px-12">
-          <p className="text-xs tracking-widest text-gray-600 uppercase text-center mb-8" style={FONTS.heading}>
-            Ucapan & Doa
-          </p>
+          <FadeIn>
+            <p className="text-xs tracking-widest text-gray-600 uppercase text-center mb-8" style={FONTS.heading}>
+              Ucapan & Doa
+            </p>
+          </FadeIn>
 
-          <input
-            type="text"
-            placeholder="Nama kamu"
-            value={formName}
-            onChange={e => setFormName(e.target.value)}
-            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-400 text-sm outline-none focus:border-gray-400 transition-all mb-3"
-            style={FONTS.body}
-          />
-          <textarea
-            placeholder="Tulis ucapan & doa terbaik kamu..."
-            rows={4}
-            value={formMessage}
-            onChange={e => setFormMessage(e.target.value)}
-            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-400 text-sm outline-none focus:border-gray-400 transition-all resize-none mb-4"
-            style={FONTS.body}
-          />
-          <button
-            onClick={handleKirim}
-            disabled={!formName.trim() || !formMessage.trim() || sending}
-            className="w-full bg-neutral-800 text-white py-3 rounded-lg text-sm tracking-wider hover:bg-neutral-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-            style={FONTS.heading}
-          >
-            {sending ? 'Mengirim...' : 'Kirim Ucapan'}
-          </button>
+          <FadeIn delay={100}>
+            <input
+              type="text"
+              placeholder="Nama kamu"
+              value={formName}
+              onChange={e => setFormName(e.target.value)}
+              className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-400 text-sm outline-none focus:border-gray-400 transition-all mb-3"
+              style={FONTS.body}
+            />
+            <textarea
+              placeholder="Tulis ucapan & doa terbaik kamu..."
+              rows={4}
+              value={formMessage}
+              onChange={e => setFormMessage(e.target.value)}
+              className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-400 text-sm outline-none focus:border-gray-400 transition-all resize-none mb-4"
+              style={FONTS.body}
+            />
+            <button
+              onClick={handleKirim}
+              disabled={!formName.trim() || !formMessage.trim() || sending}
+              className="w-full bg-neutral-800 text-white py-3 rounded-lg text-sm tracking-wider hover:bg-neutral-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              style={FONTS.heading}
+            >
+              {sending ? 'Mengirim...' : 'Kirim Ucapan'}
+            </button>
+          </FadeIn>
 
           <div className="mt-8 space-y-4">
             {messages.map((guest, i) => (
-              <div key={i} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                <p className="text-xs font-semibold text-gray-700 mb-1" style={FONTS.heading}>{guest.name}</p>
-                <p className="text-sm text-gray-800" style={FONTS.body}>{guest.message}</p>
-              </div>
+              <FadeIn key={i} delay={i * 60}>
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                  <p className="text-xs font-semibold text-gray-700 mb-1" style={FONTS.heading}>{guest.name}</p>
+                  <p className="text-sm text-gray-800" style={FONTS.body}>{guest.message}</p>
+                </div>
+              </FadeIn>
             ))}
           </div>
         </div>
 
         {/* ─── 11. INSTAGRAM STORIES ─── (white) */}
         <div className="bg-gray-50 py-14 px-12 text-center border-t border-gray-100">
-          <p className="text-xs tracking-widest text-gray-400 uppercase mb-4" style={FONTS.heading}>Instagram Stories</p>
-          <p className="text-sm text-gray-500 mb-6" style={FONTS.body}>
-            Bagikan momen bahagia ini di Instagram Stories kamu!
-          </p>
-          <button
-            onClick={() => setIgOpen(true)}
-            className="w-full text-white rounded-xl p-6 flex items-center gap-4 justify-center transition-opacity hover:opacity-90"
-            style={{ background: 'linear-gradient(135deg, #a855f7, #ec4899)' }}
-          >
-            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0">
-              <span className="text-pink-500 text-xs font-bold">IG</span>
-            </div>
-            <span className="font-semibold tracking-wide" style={FONTS.heading}>Template IG Story</span>
-          </button>
+          <FadeIn>
+            <p className="text-xs tracking-widest text-gray-400 uppercase mb-4" style={FONTS.heading}>Instagram Stories</p>
+            <p className="text-sm text-gray-500 mb-6" style={FONTS.body}>
+              Bagikan momen bahagia ini di Instagram Stories kamu!
+            </p>
+            <button
+              onClick={() => setIgOpen(true)}
+              className="w-full text-white rounded-xl p-6 flex items-center gap-4 justify-center transition-opacity hover:opacity-90"
+              style={{ background: 'linear-gradient(135deg, #a855f7, #ec4899)' }}
+            >
+              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0">
+                <span className="text-pink-500 text-xs font-bold">IG</span>
+              </div>
+              <span className="font-semibold tracking-wide" style={FONTS.heading}>Template IG Story</span>
+            </button>
+          </FadeIn>
         </div>
 
         {/* IG Story Modal */}
@@ -757,15 +792,17 @@ export default function InvitationPage() {
 
         {/* ─── 12. FOOTER ─── (dark) */}
         <div className="bg-neutral-900 py-12 px-12 text-center">
-          <p className="text-xs tracking-widest text-white/40 uppercase mb-6" style={FONTS.heading}>
-            Terima Kasih Atas Kunjungannya
-          </p>
-          <p className="text-2xl text-white mb-2" style={FONTS.script}>Iin & Bintang</p>
-          <p className="text-white/40 text-xs tracking-widest mb-6" style={FONTS.heading}>22 · MARET · 2026</p>
-          <div className="w-16 h-px bg-white/20 mx-auto mb-6" />
-          <p className="text-white/30 text-xs" style={FONTS.body}>
-            Dibuat dengan ❤️ · Terima kasih telah hadir
-          </p>
+          <FadeIn>
+            <p className="text-xs tracking-widest text-white/40 uppercase mb-6" style={FONTS.heading}>
+              Terima Kasih Atas Kunjungannya
+            </p>
+            <p className="text-2xl text-white mb-2" style={FONTS.script}>Iin & Bintang</p>
+            <p className="text-white/40 text-xs tracking-widest mb-6" style={FONTS.heading}>22 · MARET · 2026</p>
+            <div className="w-16 h-px bg-white/20 mx-auto mb-6" />
+            <p className="text-white/30 text-xs" style={FONTS.body}>
+              Dibuat dengan ❤️ · Terima kasih telah hadir
+            </p>
+          </FadeIn>
         </div>
 
       </div>
