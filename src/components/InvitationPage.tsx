@@ -1,5 +1,5 @@
-import { Calendar, Heart, MapPin, Monitor, Music2, QrCode, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Calendar, ChevronLeft, ChevronRight, Heart, MapPin, Monitor, Music2, QrCode, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { GuestMessage } from '../lib/messages'
 
@@ -17,6 +17,135 @@ const NAV_ITEMS = [
   { label: 'Galeri', href: '#galeri', icon: (_active: boolean) => <Music2 className="w-4 h-4" /> },
 ]
 
+const LOVE_STORIES = [
+  {
+    image: '/images/image-1.jpeg',
+    label: '01',
+    title: 'Pertemuan Pertama',
+    desc: 'Takdir mempertemukan kami di tempat kerja yang sama. Dari sekedar rekan, perlahan tumbuh rasa yang tak terduga.',
+  },
+  {
+    image: '/images/image-2.jpeg',
+    label: '02',
+    title: 'Chemistry Tumbuh',
+    desc: 'Obrolan kecil berubah jadi cerita panjang. Kami saling menemukan diri dalam tawa dan momen sederhana bersama.',
+  },
+  {
+    image: '/images/image-3.jpeg',
+    label: '03',
+    title: 'Memulai Hidup Baru',
+    desc: 'Setelah melewati banyak momen bersama, kami memutuskan untuk melangkah lebih jauh dengan membangun bahterah rumah tangga dan masa depan yang kami impikan berdua.',
+  },
+]
+
+function LoveStoryCarousel() {
+  const [active, setActive] = useState(0)
+  const touchStartX = useRef<number | null>(null)
+
+  function prev() { setActive(i => (i - 1 + LOVE_STORIES.length) % LOVE_STORIES.length) }
+  function next() { setActive(i => (i + 1) % LOVE_STORIES.length) }
+
+  function onTouchStart(e: React.TouchEvent) { touchStartX.current = e.touches[0].clientX }
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null) return
+    const diff = touchStartX.current - e.changedTouches[0].clientX
+    if (diff > 40) next()
+    else if (diff < -40) prev()
+    touchStartX.current = null
+  }
+
+  const story = LOVE_STORIES[active]
+
+  return (
+    <div id="kisah" className="bg-white py-14 overflow-hidden">
+      <p className="text-xs tracking-widest text-gray-500 uppercase text-center mb-8 px-12" style={FONTS.heading}>
+        Kisah Cinta
+      </p>
+
+      {/* Card */}
+      <div
+        className="mx-auto px-6 select-none w-full"
+        style={{ maxWidth: '420px' }}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        <div
+          className="rounded-2xl overflow-hidden"
+          style={{
+            border: '1px solid rgba(139, 92, 246, 0.25)',
+            boxShadow: '0 0 0 4px rgba(139,92,246,0.06), 0 12px 40px rgba(109,40,217,0.12)',
+          }}
+        >
+          {/* ── Image block ── */}
+          <div className="relative w-full bg-gray-100 overflow-hidden" style={{ aspectRatio: '1 / 1' }}>
+            <img
+              key={story.image}
+              src={story.image}
+              alt={story.title}
+              className="w-full h-full object-cover"
+            />
+
+            {/* Corner accents */}
+            <span className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2 rounded-tl-sm" style={{ borderColor: 'rgba(167,139,250,0.7)' }} />
+            <span className="absolute top-3 right-3 w-5 h-5 border-t-2 border-r-2 rounded-tr-sm" style={{ borderColor: 'rgba(167,139,250,0.7)' }} />
+            <span className="absolute bottom-3 left-3 w-5 h-5 border-b-2 border-l-2 rounded-bl-sm" style={{ borderColor: 'rgba(167,139,250,0.7)' }} />
+            <span className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2 rounded-br-sm" style={{ borderColor: 'rgba(167,139,250,0.7)' }} />
+
+            {/* Label */}
+            <span
+              className="absolute top-3 left-1/2 -translate-x-1/2 text-[10px] tracking-widest uppercase px-3 py-1 rounded-full"
+              style={{ ...FONTS.heading, background: 'rgba(109,40,217,0.55)', color: '#e9d5ff', backdropFilter: 'blur(4px)' }}
+            >
+              {story.label}
+            </span>
+
+            {/* Arrows over image */}
+            <button
+              onClick={prev}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center transition-all"
+              style={{ background: 'rgba(109,40,217,0.4)', backdropFilter: 'blur(4px)' }}
+            >
+              <ChevronLeft className="w-4 h-4 text-white" />
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center transition-all"
+              style={{ background: 'rgba(109,40,217,0.4)', backdropFilter: 'blur(4px)' }}
+            >
+              <ChevronRight className="w-4 h-4 text-white" />
+            </button>
+          </div>
+
+          {/* ── Text block ── */}
+          <div
+            className="px-6 py-5"
+            style={{ background: 'linear-gradient(135deg, #faf5ff 0%, #eff6ff 100%)' }}
+          >
+            <p className="text-2xl text-violet-900 mb-2" style={FONTS.script}>{story.title}</p>
+            <p className="text-xs leading-relaxed" style={{ ...FONTS.body, color: '#4c1d95cc' }}>{story.desc}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Dots */}
+      <div className="flex justify-center gap-2 mt-5">
+        {LOVE_STORIES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            className="rounded-full transition-all duration-300"
+            style={{
+              width: i === active ? '20px' : '8px',
+              height: '8px',
+              background: i === active ? '#7c3aed' : '#ddd6fe',
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function InvitationPage() {
   const [activeNav, setActiveNav] = useState<string | null>(null)
   const [angpaoOpen, setAngpaoOpen] = useState(false)
@@ -24,6 +153,46 @@ export default function InvitationPage() {
   const [formName, setFormName] = useState('')
   const [formMessage, setFormMessage] = useState('')
   const [sending, setSending] = useState(false)
+
+  const [rsvpOpen, setRsvpOpen] = useState(false)
+  const [rsvpDone, setRsvpDone] = useState(false)
+  const [rsvpAlready, setRsvpAlready] = useState(false)
+  const [rsvpSending, setRsvpSending] = useState(false)
+  const [rsvpNama, setRsvpNama] = useState('')
+  const [rsvpTelp, setRsvpTelp] = useState('')
+  const [rsvpAlamat, setRsvpAlamat] = useState('')
+  const [clientIp, setClientIp] = useState<string | null>(null)
+
+  async function openRsvp() {
+    setRsvpDone(false)
+    setRsvpAlready(false)
+    setRsvpOpen(true)
+    try {
+      const res = await fetch('https://api.ipify.org?format=json')
+      const { ip } = await res.json()
+      setClientIp(ip)
+      const { data } = await supabase.from('rsvp').select('id').eq('ip_address', ip).maybeSingle()
+      if (data) setRsvpAlready(true)
+    } catch {
+      setClientIp(null)
+    }
+  }
+
+  async function handleRsvp() {
+    const nama = rsvpNama.trim()
+    const nomor_telp = rsvpTelp.trim()
+    const alamat = rsvpAlamat.trim()
+    if (!nama || !nomor_telp || !alamat) return
+    setRsvpSending(true)
+    const { error } = await supabase.from('rsvp').insert({ nama, nomor_telp, alamat, ip_address: clientIp })
+    if (!error) {
+      setRsvpDone(true)
+      setRsvpNama('')
+      setRsvpTelp('')
+      setRsvpAlamat('')
+    }
+    setRsvpSending(false)
+  }
 
   useEffect(() => {
     supabase
@@ -183,7 +352,7 @@ export default function InvitationPage() {
               <Calendar className="w-3 h-3" /> Simpan Tanggal
             </button>
             <a
-              href="https://maps.app.goo.gl/yYTiCXJYRTeYuRJMA"
+              href="https://maps.app.goo.gl/J8TFTrizCpcZyLef9"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all"
@@ -201,42 +370,36 @@ export default function InvitationPage() {
             <p className="text-white/60 text-sm mb-4" style={FONTS.body}>
               Bagi yang tidak bisa hadir, saksikan secara live melalui tautan berikut
             </p>
-            <button className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all mx-auto" style={FONTS.heading}>
+            <a
+              href="https://www.tiktok.com/@iinnnst_"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 text-xs px-4 py-2 rounded-full border border-white/20 transition-all mx-auto"
+              style={FONTS.heading}
+            >
               <Monitor className="w-3 h-3" /> Tonton Live
-            </button>
+            </a>
           </div>
         </div>
 
         {/* ─── 7. LOVE STORY ─── (white) */}
-        <div id="kisah" className="bg-white py-14 px-12">
-          <p className="text-xs tracking-widest text-gray-600 uppercase text-center mb-10" style={FONTS.heading}>
-            Kisah Cinta
-          </p>
-
-          {[
-            { title: 'Pertemuan Pertama', desc: 'Kami pertama kali bertemu di sebuah acara yang tidak kami duga akan mengubah hidup kami selamanya.' },
-            { title: 'Jatuh Cinta', desc: 'Waktu demi waktu berlalu, perasaan itu tumbuh perlahan namun pasti, hingga kami sadar telah saling mencintai.' },
-          ].map((story, i) => (
-            <div key={i} className={`flex gap-5 mb-10 ${i % 2 !== 0 ? 'flex-row-reverse' : ''}`}>
-              <div className="w-28 h-28 shrink-0 bg-gray-100 overflow-hidden rounded-sm">
-                <img src="/images/couple-hero.jpeg" alt={story.title} className="w-full h-full object-cover" />
-              </div>
-              <div className="flex flex-col justify-center">
-                <p className="text-xl text-gray-900 mb-2" style={FONTS.script}>{story.title}</p>
-                <p className="text-xs text-gray-700 leading-relaxed" style={FONTS.body}>{story.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <LoveStoryCarousel />
 
         {/* ─── 8. GALLERY ─── (dark) */}
         <div id="galeri" className="bg-neutral-800 py-14 px-12">
           <p className="text-xs tracking-widest text-white/40 uppercase text-center mb-8" style={FONTS.heading}>Galeri</p>
           <div className="grid grid-cols-3 gap-2">
-            {Array.from({ length: 6 }).map((_, i) => (
+            {[
+              '/images/image-4.jpeg',
+              '/images/image-5.jpeg',
+              '/images/image-6.jpeg',
+              '/images/image-7.jpeg',
+              '/images/image-8.jpeg',
+              '/images/image-9.jpeg',
+            ].map((src, i) => (
               <div key={i} className="aspect-square bg-neutral-700 overflow-hidden">
                 <img
-                  src="/images/couple-hero.jpeg"
+                  src={src}
                   alt={`Gallery ${i + 1}`}
                   className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
                 />
@@ -247,34 +410,152 @@ export default function InvitationPage() {
 
         {/* ─── 9. RSVP ─── (dark) */}
         <div className="bg-neutral-900 py-14 px-12 text-center">
-          <p className="text-xs tracking-widest text-white/40 uppercase mb-6" style={FONTS.heading}>RSVP</p>
-
-          <div className="mb-6">
-            <p className="text-white/70 text-sm mb-4" style={FONTS.body}>
-              Kode undangan kamu:
-            </p>
-            <div className="bg-white/10 rounded-lg px-6 py-3 inline-block border border-white/20">
-              <span className="text-white text-lg tracking-widest" style={FONTS.heading}>—</span>
-            </div>
-          </div>
-
-          <p className="text-white/50 text-xs leading-relaxed mb-8 max-w-xs mx-auto" style={FONTS.body}>
-            Mohon konfirmasi kehadiran kamu dengan memasukkan kode di atas untuk mendaftar tamu.
+          <p className="text-xs tracking-widest text-white/40 uppercase mb-6" style={FONTS.heading}>Konfirmasi Kehadiran</p>
+          <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-xs mx-auto" style={FONTS.body}>
+            Kehadiran Bapak/Ibu, Saudara/i adalah kehormatan bagi kami. Mohon konfirmasi kehadiran Anda.
           </p>
-
-          <input
-            type="text"
-            placeholder="Masukkan kode undangan"
-            className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/30 text-sm text-center outline-none focus:border-white/50 transition-all mb-4"
-            style={FONTS.body}
-          />
           <button
-            className="w-full bg-white text-neutral-900 py-3 rounded-lg text-sm font-semibold tracking-wider hover:bg-white/90 transition-all"
+            onClick={openRsvp}
+            className="bg-white text-neutral-900 px-8 py-3 rounded-full text-sm tracking-wider hover:bg-white/90 transition-all"
             style={FONTS.heading}
           >
-            Daftar Sekarang
+            Konfirmasi Sekarang
           </button>
         </div>
+
+        {/* RSVP Modal */}
+        {rsvpOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+            onClick={() => setRsvpOpen(false)}
+          >
+            <div
+              className="rounded-2xl p-6 mx-4 max-w-xs w-full shadow-2xl"
+              style={{
+                background: 'linear-gradient(145deg, #0f2744 0%, #1a3f6f 40%, #0d1f38 100%)',
+                border: '1px solid rgba(100, 160, 220, 0.25)',
+                boxShadow: '0 25px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)',
+              }}
+              onClick={e => e.stopPropagation()}
+            >
+              {rsvpAlready ? (
+                <div className="text-center py-4">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"
+                    style={{ background: 'rgba(100,160,220,0.15)', border: '1px solid rgba(100,160,220,0.3)' }}
+                  >
+                    <Heart className="w-6 h-6 fill-current" style={{ color: '#7eb8e8' }} />
+                  </div>
+                  <p className="text-xl mb-2" style={{ ...FONTS.script, color: '#e8f4ff' }}>Sudah Terdaftar</p>
+                  <p className="text-xs leading-relaxed mb-5" style={{ ...FONTS.body, color: 'rgba(168,212,245,0.7)' }}>
+                    Anda sudah pernah mengkonfirmasi kehadiran sebelumnya. Terima kasih!
+                  </p>
+                  <button
+                    onClick={() => setRsvpOpen(false)}
+                    className="px-6 py-2 rounded-full text-xs tracking-wider transition-all"
+                    style={{ ...FONTS.heading, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(100,160,220,0.3)', color: '#a8d4f5' }}
+                  >
+                    Tutup
+                  </button>
+                </div>
+              ) : !rsvpDone ? (
+                <>
+                  {/* Header */}
+                  <div className="flex justify-between items-center mb-5">
+                    <h3 className="text-sm tracking-widest uppercase" style={{ ...FONTS.heading, color: '#a8d4f5' }}>
+                      Konfirmasi Kehadiran
+                    </h3>
+                    <button
+                      onClick={() => setRsvpOpen(false)}
+                      className="transition-colors"
+                      style={{ color: 'rgba(168, 212, 245, 0.5)' }}
+                      onMouseEnter={e => (e.currentTarget.style.color = '#a8d4f5')}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(168, 212, 245, 0.5)')}
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Fields */}
+                  <div className="space-y-3 mb-5">
+                    {[
+                      { type: 'text', placeholder: 'Nama lengkap', value: rsvpNama, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setRsvpNama(e.target.value) },
+                      { type: 'tel',  placeholder: 'Nomor telepon', value: rsvpTelp, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setRsvpTelp(e.target.value) },
+                    ].map(field => (
+                      <input
+                        key={field.placeholder}
+                        type={field.type}
+                        placeholder={field.placeholder}
+                        value={field.value}
+                        onChange={field.onChange}
+                        className="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all"
+                        style={{
+                          ...FONTS.body,
+                          background: 'rgba(255,255,255,0.07)',
+                          border: '1px solid rgba(100, 160, 220, 0.2)',
+                          color: '#e8f4ff',
+                        }}
+                      />
+                    ))}
+                    <textarea
+                      placeholder="Alamat"
+                      rows={3}
+                      value={rsvpAlamat}
+                      onChange={e => setRsvpAlamat(e.target.value)}
+                      className="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all resize-none"
+                      style={{
+                        ...FONTS.body,
+                        background: 'rgba(255,255,255,0.07)',
+                        border: '1px solid rgba(100, 160, 220, 0.2)',
+                        color: '#e8f4ff',
+                      }}
+                    />
+                  </div>
+
+                  {/* Submit */}
+                  <button
+                    onClick={handleRsvp}
+                    disabled={!rsvpNama.trim() || !rsvpTelp.trim() || !rsvpAlamat.trim() || rsvpSending}
+                    className="w-full py-3 rounded-lg text-sm tracking-wider transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                    style={{
+                      ...FONTS.heading,
+                      background: 'linear-gradient(135deg, #1e3a5f 0%, #2e6b9e 100%)',
+                      color: '#e8f4ff',
+                      border: '1px solid rgba(100,160,220,0.3)',
+                    }}
+                  >
+                    {rsvpSending ? 'Mengirim...' : 'Kirim Konfirmasi'}
+                  </button>
+                </>
+              ) : (
+                <div className="text-center py-4">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"
+                    style={{ background: 'rgba(100,160,220,0.15)', border: '1px solid rgba(100,160,220,0.3)' }}
+                  >
+                    <Heart className="w-6 h-6 fill-current" style={{ color: '#7eb8e8' }} />
+                  </div>
+                  <p className="text-xl mb-2" style={{ ...FONTS.script, color: '#e8f4ff' }}>Terima Kasih!</p>
+                  <p className="text-xs leading-relaxed mb-5" style={{ ...FONTS.body, color: 'rgba(168,212,245,0.7)' }}>
+                    Konfirmasi kehadiran Anda telah kami terima. Kami sangat menantikan kehadiran Anda.
+                  </p>
+                  <button
+                    onClick={() => setRsvpOpen(false)}
+                    className="px-6 py-2 rounded-full text-xs tracking-wider transition-all"
+                    style={{
+                      ...FONTS.heading,
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(100,160,220,0.3)',
+                      color: '#a8d4f5',
+                    }}
+                  >
+                    Tutup
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* ─── 10. UCAPAN & DOA ─── (white) */}
         <div className="bg-white py-14 px-12">
@@ -333,9 +614,9 @@ export default function InvitationPage() {
 
         {/* ─── 12. FOOTER ─── (dark) */}
         <div className="bg-neutral-900 py-12 px-12 text-center">
-          <div className="mb-6">
-            <img src="/images/couple-hero.jpeg" alt="Footer" className="w-full h-40 object-cover object-top opacity-40" />
-          </div>
+          <p className="text-xs tracking-widest text-white/40 uppercase mb-6" style={FONTS.heading}>
+            Terima Kasih Atas Kunjungannya
+          </p>
           <p className="text-2xl text-white mb-2" style={FONTS.script}>Iin & Bintang</p>
           <p className="text-white/40 text-xs tracking-widest mb-6" style={FONTS.heading}>22 · MARET · 2026</p>
           <div className="w-16 h-px bg-white/20 mx-auto mb-6" />
